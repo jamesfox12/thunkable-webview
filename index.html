@@ -26,13 +26,13 @@
 
         ThunkableWebviewerExtension.receiveMessage(function(message) {
             if (message === "showDropdown") {
-                sendStatesToThunkable();
+                showDropdown();
             } else {
                 console.log(message);
             }
         });
 
-        function sendStatesToThunkable() {
+        function showDropdown() {
             const states = [
                 "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
                 "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", 
@@ -42,7 +42,14 @@
                 "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", 
                 "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
             ];
-            ThunkableWebviewerExtension.postMessage(JSON.stringify(states));
+            let select = document.createElement("select");
+            states.forEach(state => {
+                let option = document.createElement("option");
+                option.value = state;
+                option.textContent = state;
+                select.appendChild(option);
+            });
+            document.getElementById("idBody").appendChild(select);
         }
     </script>
 </head>
