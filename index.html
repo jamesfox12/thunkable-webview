@@ -25,18 +25,40 @@
   <body id="idBody">
   </body>
   <script>
-    console.log("LOADED!!");
     ThunkableWebviewerExtension.receiveMessage(function(message) {
 		
 		if (message.indexOf('<script>')==-1){
 		
 			document.getElementById('idBody').innerHTML = message;	
 			
-		} else {
+		} else if (message === "showDropdown"){
+			showDropdown();
+		}
+		else {
 			
 			let matches = message.match(/<script.*?>(.*?)<\/script>/);
 			eval(matches[1]);
 		}
     });
+
+	function showDropdown() {
+            const states = [
+                "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
+                "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", 
+                "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", 
+                "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", 
+                "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", 
+                "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", 
+                "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+            ];
+            let select = document.createElement("select");
+            states.forEach(state => {
+                let option = document.createElement("option");
+                option.value = state;
+                option.textContent = state;
+                select.appendChild(option);
+            });
+            document.getElementById("idBody").appendChild(select);
+        };
   </script>
 </html>
