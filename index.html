@@ -25,23 +25,15 @@
   <body id="idBody">
   </body>
   <script>
-    ThunkableWebviewerExtension.receiveMessage(function(message) {
-		
-		if (message.indexOf('<script>')==-1){
-		
-			document.getElementById('idBody').innerHTML = message;	
-			
-		} else if (message === "showDropdown"){
-			showDropdown();
-		}
-		else {
-			
-			let matches = message.match(/<script.*?>(.*?)<\/script>/);
-			eval(matches[1]);
-		}
-    });
+        ThunkableWebviewerExtension.receiveMessage(function(message) {
+            if (message === "showDropdown") {
+                showDropdown();
+            } else {
+                console.log(message);
+            }
+        });
 
-	function showDropdown() {
+        function showDropdown() {
             const states = [
                 "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
                 "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", 
@@ -59,6 +51,6 @@
                 select.appendChild(option);
             });
             document.getElementById("idBody").appendChild(select);
-        };
+        }
   </script>
 </html>
